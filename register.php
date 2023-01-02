@@ -1,6 +1,6 @@
 <?php 
  
-include 'config.php';
+include 'php/config.php';
  
 error_reporting(0);
  
