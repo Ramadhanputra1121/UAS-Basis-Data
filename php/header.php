@@ -1,9 +1,12 @@
 
 <header id="header">
+<link rel="stylesheet" type="text/css" href="style2.css">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a href="marketplace.php" class="navbar-brand">
             <h3 class="px-5">
-                <i class="fas fa-shopping-basket"></i> Shopping Cart
+                <i class="fas fa-shopping-basket"></i> Shopping Cart <br><br>
+                <?php echo "<p>Selamat Datang, " . $_SESSION['username'] ."!". "</p>"; ?>
+                <a href="logout.php" id="logout">Logout</a>
             </h3>
         </a>
         <button class="navbar-toggler"
