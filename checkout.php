@@ -9,6 +9,7 @@ if (!isset($_SESSION['cart'])) {
 require_once("php/CreateDb.php");
 require_once("php/component.php");
 
+$db = new CreateDb("project_uas_basdat", "purchase_table");
 $db = new CreateDb("project_uas_basdat", "producttb");
 
 // Menangani pengurangan jumlah produk
@@ -18,12 +19,19 @@ if (isset($_POST['minus'])) {
       if ($value["product_id"] == $_GET['id']) {
         if ($_SESSION['cart'][$key]['quantity'] >= 1) {
           $_SESSION['cart'][$key]['quantity']--;
-        }else{
+        } else {
           unset($_SESSION['cart'][$key]);
         }
       }
     }
   }
+}
+
+if (isset($_POST['buy_now'])) {
+  echo "<script>alert('Your item is being proccessed')</script>";
+  echo "<script>window.location = 'marketplace.php'</script>";
+  
+  $_SESSION['cart'] = array();
 }
 
 // Menangani penambahan jumlah produk
@@ -77,8 +85,7 @@ if (isset($_SESSION['cart'])) {
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Checkout</title>
 
@@ -86,8 +93,7 @@ if (isset($_SESSION['cart'])) {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css" />
 
   <!-- Bootstrap CDN -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
   <link rel="stylesheet" href="style.css">
 </head>
@@ -115,27 +121,28 @@ if (isset($_SESSION['cart'])) {
                 $result = $db->getData();
                 while ($row = mysqli_fetch_assoc($result)) {
                   if ($row['id'] == $value['product_id']) {
-                    ?>
-                <tr>
-                  <td>
-                    <?php echo $row['product_name']; ?>
-                  </td>
-                  <td>$<?php echo $row['product_price']; ?></td>
-                  <td style='width : fit-content; display: flex;'>
-                    <form action="checkout.php?action=minus&id=<?php echo $value['product_id']; ?>" method="post" style="margin-right: 10px;">
-                      <button type="submit" name="minus" value="minus" class="btn btn-danger" style="height: 25px; justify-content: center;">-</button>
-                    </form>
-                    <h4 style="text-align: center;"><?php echo $value['quantity']; ?></h4>
-                    <form action="checkout.php?action=plus&id=<?php echo $value['product_id']; ?>" method="post" style="margin-left: 10px;">
-                        <button type="submit" name="plus" value="plus" class="btn btn-success" style="height: 25px; justify-content: center;">+</button>
-                    </form>
-                  </td>
-                  <td>
-                    $<?php echo calculateProductTotalPrice($value['product_id'], $value['quantity'], $db); ?>
-                  </td>
-                </tr>
+              ?>
+                    <tr>
+                      <td>
+                        <?php echo $row['product_name']; ?>
+                      </td>
+                      <td>$<?php echo $row['product_price']; ?></td>
+                      <td style='width : fit-content; display: flex;'>
+                        <form action="checkout.php?action=minus&id=<?php echo $value['product_id']; ?>" method="post" style="margin-right: 10px;">
+                          <button type="submit" name="minus" value="minus" class="btn btn-danger" style="height: 25px; justify-content: center;"></button>
+                        </form>
+                        <h5><?php echo $value['quantity']; ?></h5>
+                        <form action="checkout.php?action=plus&id=<?php echo $value['product_id']; ?>" method="post" style="margin-left: 10px;">
+                          <button type="submit" name="plus" value="plus" class="btn btn-success " style="height: 25px; justify-content: center;"></button>
+                        </form>
+                      </td>
+                      <td>
+                        $<?php echo calculateProductTotalPrice($value['product_id'], $value['quantity'], $db); ?>
+                      </td>
+                    </tr>
               <?php }
-                }} ?>
+                }
+              } ?>
             </table>
           </div>
         </div>
@@ -158,8 +165,7 @@ if (isset($_SESSION['cart'])) {
               </div>
               <div class="form-group">
                 <label for="totalHarga">Total Price</label>
-                <input type="text" class="form-control" value="$<?php echo $total_price; ?>" id="totalHarga"
-                  name="totalHarga" readonly>
+                <input type="text" class="form-control" value="$<?php echo $total_price; ?>" id="totalHarga" name="totalHarga" readonly>
               </div>
               <div class="form-group">
                 <label for="namaPenerima">Recipient's Name</label>
@@ -170,7 +176,9 @@ if (isset($_SESSION['cart'])) {
                 <textarea name="alamatPengiriman" id="alamatPengiriman" class="form-control" required></textarea>
               </div>
               <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block" name="checkout">Buy Now</button>
+                <form method="POST" action="checkout.php">
+                  <button type="submit" class="btn btn-primary btn-block" name="buy_now">Buy Now</button>
+                </form>  
               </div>
             </form>
           </div>

@@ -20,11 +20,11 @@ function component($productname, $productprice, $productimg, $productid)
                                 <i class=\"far fa-star\"></i>
                             </h6>
                             <p class=\"card-text\">
-                                Some quick example text to build on the card.
+                                Great quality product.
                             </p>
                             <h5>
                                 <small><s class=\"text-secondary\">$519</s></small>
-                                <span class=\"price\">$$productprice</span>
+                                <span class=\"price\">$productprice</span>
                             </h5>
 
                             <button type=\"submit\" class=\"btn btn-warning my-3\" name=\"add\">Add to Cart <i class=\"fas fa-shopping-cart\"></i></button>
@@ -48,11 +48,11 @@ function cartElement($productimg, $productname, $productprice, $productid)
                                 <img src=$productimg alt=\"Image1\" class=\"img-fluid\">
                             </div>
                             <div class=\"col-md-6\">
-                                <h5 class=\"pt-2\">$productname</h5>
-                                <small class=\"text-secondary\">Seller: dailytuition</small>
+                                <br>
+                                <h4 class=\"pt-2\">$productname</h4>
                                 <h5 class=\"pt-2\">$$productprice</h5>
-                                <button type=\"submit\" class=\"btn btn-warning\">Save for Later</button>
-                                <button type=\"submit\" class=\"btn btn-danger mx-2\" name=\"remove\">Remove</button>
+                                <br>
+                                <button type=\"submit\" class=\"btn btn-danger\" name=\"remove\">Remove</button>
                             </div>
                         </div>
                     </div>
