@@ -123,11 +123,11 @@ if (isset($_SESSION['cart'])) {
                   <td>$<?php echo $row['product_price']; ?></td>
                   <td style='width : fit-content; display: flex;'>
                     <form action="checkout.php?action=minus&id=<?php echo $value['product_id']; ?>" method="post" style="margin-right: 10px;">
-                      <button type="submit" name="minus" value="minus" class="btn btn-danger" style="height: 25px;">-</button>
+                      <button type="submit" name="minus" value="minus" class="btn btn-danger" style="height: 25px; justify-content: center;">-</button>
                     </form>
-                    <h5 style="text-align: center;"><?php echo $value['quantity']; ?></h5>
+                    <h4 style="text-align: center;"><?php echo $value['quantity']; ?></h4>
                     <form action="checkout.php?action=plus&id=<?php echo $value['product_id']; ?>" method="post" style="margin-left: 10px;">
-                      <button type="submit" name="plus" value="plus" class="btn btn-success" style="height: 25px;">+</button>
+                        <button type="submit" name="plus" value="plus" class="btn btn-success" style="height: 25px; justify-content: center;">+</button>
                     </form>
                   </td>
                   <td>
