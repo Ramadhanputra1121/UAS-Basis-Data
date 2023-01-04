@@ -16,8 +16,10 @@ if (isset($_POST['minus'])) {
   if ($_GET['action'] == 'minus') {
     foreach ($_SESSION['cart'] as $key => $value) {
       if ($value["product_id"] == $_GET['id']) {
-        if ($_SESSION['cart'][$key]['quantity'] >= 1) { // menambahkan pengecekan agar jumlah produk tidak menjadi negatif
+        if ($_SESSION['cart'][$key]['quantity'] >= 1) {
           $_SESSION['cart'][$key]['quantity']--;
+        }else{
+          unset($_SESSION['cart'][$key]);
         }
       }
     }
@@ -104,10 +106,10 @@ if (isset($_SESSION['cart'])) {
           <div class="card-body">
             <table class="table table-striped">
               <tr>
-                <th>Nama Barang</th>
-                <th>Harga</th>
-                <th>Jumlah</th>
-                <th>Total Harga</th>
+                <th>Item Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
               </tr>
               <?php foreach ($_SESSION['cart'] as $value) {
                 $result = $db->getData();
@@ -119,13 +121,13 @@ if (isset($_SESSION['cart'])) {
                     <?php echo $row['product_name']; ?>
                   </td>
                   <td>$<?php echo $row['product_price']; ?></td>
-                  <td>
-                    <form action="checkout.php?action=minus&id=<?php echo $value['product_id']; ?>" method="post">
-                      <button type="submit" name="minus" value="minus" class="btn btn-danger">-</button>
+                  <td style='width : fit-content; display: flex;'>
+                    <form action="checkout.php?action=minus&id=<?php echo $value['product_id']; ?>" method="post" style="margin-right: 10px;">
+                      <button type="submit" name="minus" value="minus" class="btn btn-danger" style="height: 25px;">-</button>
                     </form>
-                    <?php echo $value['quantity']; ?>
-                    <form action="checkout.php?action=plus&id=<?php echo $value['product_id']; ?>" method="post">
-                      <button type="submit" name="plus" value="plus" class="btn btn-success">+</button>
+                    <h5 style="text-align: center;"><?php echo $value['quantity']; ?></h5>
+                    <form action="checkout.php?action=plus&id=<?php echo $value['product_id']; ?>" method="post" style="margin-left: 10px;">
+                      <button type="submit" name="plus" value="plus" class="btn btn-success" style="height: 25px;">+</button>
                     </form>
                   </td>
                   <td>
