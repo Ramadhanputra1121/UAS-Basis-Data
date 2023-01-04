@@ -3,7 +3,7 @@
 $server = "localhost";
 $user = "root";
 $pass = "";
-$database = "ecommerce2";
+$database = "project_uas_basdat";
  
 $conn = mysqli_connect($server, $user, $pass, $database);
  

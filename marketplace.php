@@ -6,7 +6,7 @@ require_once ('./php/component.php');
 session_start();
 
 // create instance of Createdb class
-$database = new CreateDb("ecommerce2", "Producttb");
+$database = new CreateDb("project_uas_basdat", "producttb");
 
 if (isset($_POST['add'])){
     /// print_r($_POST['product_id']);
@@ -27,7 +27,8 @@ if (isset($_POST['add'])){
             $_SESSION['cart'][$count] = $item_array;
         }
 
-    }else{
+    }
+    else{
 
         $item_array = array(
                 'product_id' => $_POST['product_id']
@@ -35,7 +36,6 @@ if (isset($_POST['add'])){
 
         // Create new session variable
         $_SESSION['cart'][0] = $item_array;
-        print_r($_SESSION['cart']);
     }
 }
 

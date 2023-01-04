@@ -1,6 +1,7 @@
 <?php
 
-function component($productname, $productprice, $productimg, $productid){
+function component($productname, $productprice, $productimg, $productid)
+{
     $element = "
     
     <div class=\"col-md-3 col-sm-6 my-3 my-md-0\">
@@ -36,7 +37,8 @@ function component($productname, $productprice, $productimg, $productid){
     echo $element;
 }
 
-function cartElement($productimg, $productname, $productprice, $productid){
+function cartElement($productimg, $productname, $productprice, $productid)
+{
     $element = "
     
     <form action=\"cart.php?action=remove&id=$productid\" method=\"post\" class=\"cart-items\">
@@ -52,34 +54,36 @@ function cartElement($productimg, $productname, $productprice, $productid){
                                 <button type=\"submit\" class=\"btn btn-warning\">Save for Later</button>
                                 <button type=\"submit\" class=\"btn btn-danger mx-2\" name=\"remove\">Remove</button>
                             </div>
-                            <div class=\"col-md-3 py-5\">
-                                <div>
-                                    <button type=\"button\" class=\"btn bg-light border rounded-circle\"><i class=\"fas fa-minus\"></i></button>
-                                    <input type=\"text\" value=\"1\" class=\"form-control w-25 d-inline\">
-                                    <button type=\"button\" class=\"btn bg-light border rounded-circle\"><i class=\"fas fa-plus\"></i></button>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </form>
     
     ";
-    echo  $element;
+    echo $element;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function checkoutElement($product_id, $product_name, $product_price, $quantity, $subtotal)
+{
+    $quantity = '1';
+    $element = '
+      <tr>
+        <td>' . $product_name . '</td>
+        <td>' . $product_price . '</td>
+        <td>
+          <form method="POST" action="checkout.php?action=minus&id=' . $product_id . '">
+            <input type="submit" value="-" name="minus" class="btn btn-secondary btn-sm">
+            <input type="number" value="' . $quantity . '" name="quantity" readonly class="form-control-plaintext w-25 d-inline-block">
+            <form method="POST" action="checkout.php?action=plus&id=' . $product_id . '">
+              <input type="submit" value="+" name="plus" class="btn btn-secondary btn-sm">
+            </form>
+          </form>
+        </td>
+        <td>' . $subtotal . '</td>
+        <td>
+          <form method="POST" action="checkout.php?action=remove&id=' . $product_id . '">
+            <input type="submit" value="X" name="remove" class="btn btn-danger btn-sm">
+          </form>
+        </td>
+      </tr>';
+    echo $element;
+}

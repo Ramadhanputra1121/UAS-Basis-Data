@@ -14,7 +14,7 @@ img{
 #cart_count{
     text-align: center;
     padding: 0 0.9rem 0.1rem 0.9rem;
-    border-radius: 3rem;
+    border-radius: 5rem;
 }
 
 .shopping-cart{
@@ -29,3 +29,8 @@ img{
     padding: 3% 2%;
 }
 
+.shopping-items-carts{
+    margin-left: 50px;
+    margin-right: 50px;
+    border-radius: 5px;
+}

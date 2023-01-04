@@ -13,7 +13,7 @@ class CreateDb
 
         // class constructor
     public function __construct(
-        $dbname = "ecommerce2",
+        $dbname = "project_uas_basdat",
         $tablename = "producttb",
         $servername = "localhost",
         $username = "root",
@@ -54,8 +54,9 @@ class CreateDb
                 echo "Error creating table : " . mysqli_error($this->con);
             }
 
-        }else{
-            return false;
+        }
+        else{
+            return;
         }
     }
 
